@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block body %}
+  {% if session.logged_in %}
+    <form action="{{ url_for('add_to_groups_list') }}" method=post class=add-entry>
+      <dl>
+        <dt>Group Name:
+        <dd><input type=submit size=30 name=groupname>
+        <dt>Group Member:
+        <dd><input type=submit size=30 name=title>
+      </dl>
+    </form>
+  {% endif %}
+  <ul class=entries>
+  {% for group in groups %}
+    <li><h2>{{ group.groupname }}</h2>{{ group.groupmember }}
+  {% else %}
+    <li><em>It appears you haven't yet added any groupmembers</em>
+  {% endfor %}
+  </ul>
+{% endblock %}
