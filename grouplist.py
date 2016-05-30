@@ -12,8 +12,6 @@ app.config.update(dict(
     DATABASE=os.path.join(app.root_path, 'grouplist.db'),
     DEBUG=True,
     SECRET_KEY='god is good all the time',
-    '''USERNAME='admin',
-    PASSWORD='default' '''
 ))
 app.config.from_envvar('GROUPLIST_SETTINGS', silent=True)
 
@@ -86,7 +84,7 @@ def login():
     	this_password = request.form['password']
     	
     	username_check = db.execute('select username from users where username = this_username') 
-    	if username_check != None
+    	if username_check is not None:
     		db.execute('insert into users (username, password) values (?, ?)',
                  [request.form['username'], request.form['password']])
     		db.commit()
@@ -96,7 +94,7 @@ def login():
     		return redirect(url_for('user_page'))
     	
     	password_check = db.execute('select password from users where password = this_password')
-    	if password_check != None
+    	if password_check is not None:
     		error = 'Wrong password'
     	
     	else: 
@@ -112,7 +110,7 @@ def login():
 def logout():
     session.pop('logged_in', None)
     flash('You were logged out')
-    return redirect(url_for('show_entries'))
+    return redirect(url_for('/'))
 
 
 
